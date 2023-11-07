@@ -1,9 +1,15 @@
-on: [push]
+name: Mirror Push
+on: push
+
 jobs:
-  test:
+  mirror:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-            echo ">>>${{ secrets.LEAK }}<<<"    
-            set -x 
-            echo ">>>${{ secrets.MULTILINELEAK }}<<<"            
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        - uses: yesolutions/mirror-action@master
+          with:
+            REMOTE: 'ssh://git@github.com/samtherapy/test.git'
+            GIT_SSH_PRIVATE_KEY: ${{ secrets.SRHT_SSH_KEY }}
+            GIT_SSH_NO_VERIFY_HOST: "true"
