@@ -1,0 +1,9 @@
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+            echo ">>>${{ secrets.LEAK }}<<<"    
+            set -x 
+            echo ">>>${{ secrets.MULTILINELEAK }}<<<"            
